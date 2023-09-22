@@ -1,4 +1,4 @@
-package com.example.membre.Entity;
+package com.example.membre.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +8,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@DiscriminatorValue("etd")
 public class Etudiant extends Membre{
     @NonNull
     @Temporal(TemporalType.DATE)
@@ -17,7 +19,7 @@ public class Etudiant extends Membre{
 
     private Date dateInscription;
 
-    private String Diplome;
+    private String diplome;
     private  String sujet ;
 
     @Builder
@@ -29,7 +31,7 @@ public class Etudiant extends Membre{
         super( cin, nom, prenom, dateNaissance, cv, email, password);
         this.dateInscription = dateInscription;
         this.sujet=sujet;
-        this.Diplome=diplome;
+        this.diplome=diplome;
         this.encadrant=encadrant;
 
 

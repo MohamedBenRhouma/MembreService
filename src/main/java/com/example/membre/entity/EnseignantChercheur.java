@@ -1,22 +1,18 @@
-package com.example.membre.Entity;
+package com.example.membre.entity;
 
 
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.Date;
-import java.util.List;
-
 
 
 @NoArgsConstructor
-@Entity @DiscriminatorValue("enschercheur")
+@Entity @DiscriminatorValue("ens")
 public class EnseignantChercheur extends Membre{
 
 
