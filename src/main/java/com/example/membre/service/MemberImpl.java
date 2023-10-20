@@ -1,21 +1,27 @@
 package com.example.membre.service;
 
+import com.example.membre.beans.PublicationBean;
 import com.example.membre.dao.EnseignatChercheurRepository;
 import com.example.membre.dao.EtudiantRepository;
+import com.example.membre.dao.MembrePubRepository;
 import com.example.membre.dao.MembreRepository;
-import com.example.membre.entity.EnseignantChercheur;
-import com.example.membre.entity.Etudiant;
-import com.example.membre.entity.Membre;
+import com.example.membre.entity.*;
+import com.example.membre.proxies.PublicationProxyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 @AllArgsConstructor
+
 @Service
 public class MemberImpl implements IMemberService {
+    PublicationProxyService proxy ;
 
     MembreRepository memberRepository;
     EtudiantRepository etudiantRepository;
     EnseignatChercheurRepository enseignatChercheurRepository;
+    MembrePubRepository membrepubrepository;
 
     @Override
     public List<Etudiant> findEtudinatByEncadrant(EnseignantChercheur ens) {
@@ -82,4 +88,28 @@ return etudiantRepository.findByEncadrant(ens);
     public List<EnseignantChercheur> findByEtablissement(String etablissement) {
          return  enseignatChercheurRepository.findByEtablissement(etablissement);
     }
+
+    public void affecterauteurTopublication(Long idauteur, Long idpub)
+    {
+        Membre mbr= memberRepository.findById(idauteur).get();
+        Membre_Publication mbs= new Membre_Publication();
+        mbs.setAuteur(mbr);
+        mbs.setId(new Membre_Pub_Id(idpub, idauteur));
+        membrepubrepository.save(mbs);
+    }
+
+
+    public List<PublicationBean> findPublicationparauteur(Long idauteur) {
+        List<PublicationBean> pubs=new ArrayList<PublicationBean>();
+        Membre auteur= memberRepository.findById(idauteur).get();
+        List< Membre_Publication>
+                idpubs=membrepubrepository.findByAuteur(auteur);
+        idpubs.forEach(s->{
+                    System.out.println(s);
+                    pubs.add(proxy.recupererUnePublication(s.getId().getPublication_id()));
+                }
+        );
+        return pubs;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.membre;
 
+import com.example.membre.beans.PublicationBean;
 import com.example.membre.dao.MembreRepository;
 import com.example.membre.entity.EnseignantChercheur;
 import com.example.membre.entity.Etudiant;
@@ -9,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+@EnableDiscoveryClient
+@EnableFeignClients
 @SpringBootApplication
 public class MemberApplication implements CommandLineRunner {
 	@Autowired
@@ -97,6 +102,8 @@ public class MemberApplication implements CommandLineRunner {
 		memberService.deleteMember(2L);
 
 		memberService.affecterEtudianttoEnseignant(3,1);
+		memberService.affecterauteurTopublication(1L,1L);
+
 
 }
 

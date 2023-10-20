@@ -1,5 +1,6 @@
 package com.example.membre.service;
 
+import com.example.membre.beans.PublicationBean;
 import com.example.membre.entity.EnseignantChercheur;
 import com.example.membre.entity.Etudiant;
 import com.example.membre.entity.Membre;
@@ -25,4 +26,6 @@ public interface IMemberService {
     //recherche spécifique des enseignants
     public List<EnseignantChercheur> findByGrade(String grade);
     public List<EnseignantChercheur> findByEtablissement(String etablissement);
-}
+
+    public void affecterauteurTopublication(Long id_membre, Long idpub);
+    public List<PublicationBean> findPublicationparauteur (Long idauteur);}

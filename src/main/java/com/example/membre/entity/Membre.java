@@ -1,11 +1,14 @@
 package com.example.membre.entity;
+import com.example.membre.beans.PublicationBean;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
+
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name= "type_mbr", discriminatorType =
         DiscriminatorType.STRING,length = 3)
@@ -32,7 +35,9 @@ public abstract class Membre implements Serializable {
     private String email;
     @NonNull
     private String password;
-
+    @Transient
+    Collection<PublicationBean> pubs;
+//plus génération des getters et setters
 
 
 }
